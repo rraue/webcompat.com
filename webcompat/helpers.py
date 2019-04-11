@@ -393,7 +393,8 @@ def mockable_response(func):
             if get_args:
                 # if there are GET args, encode them as a hash so we can
                 # have different fixture files for different response states
-                checksum = hashlib.md5(json.dumps(get_args)).hexdigest()
+                json_bytes = to_bytes(json.dumps(get_args))
+                checksum = hashlib.md5(json_bytes).hexdigest()
                 file_path = FIXTURES_PATH + request.path + "." + checksum
             else:
                 file_path = FIXTURES_PATH + request.path
